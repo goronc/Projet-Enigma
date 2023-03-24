@@ -116,7 +116,6 @@ def frequence_lettre(chaine):
             dico[chaine[i]] += 1 
         else:                           #sinon on la créer et on l'intialise a 1
             dico[chaine[i]] = 1 
-    dico.pop(" ")                   #on enleve les espaces du dictionnaire
     return dico
 
 
@@ -237,6 +236,8 @@ def decrypter(chaine,alphabet):
 
     """
     chaine_sans_espace = chaine.replace(" ","")                     #pour enlever les espaces
+    freq = frequence_lettre(chaine_sans_espace)                    #frequence des lettre de la chaine
+    affiche_graph(freq)                     
     decalage = trouve_decalage(chaine_sans_espace,alphabet)        #cherche le decalage
     chaine_decrypter = dechiffrer(chaine,decalage,alphabet)        #puis on dechiffre le message car on connait maintenant le decalage
     return chaine_decrypter
@@ -256,6 +257,7 @@ def affiche_graph(freq):
     None
 
     """
+    freq = dict(sorted(freq.items()))
     fig,ax = plt.subplots(figsize=(5, 2.7), layout='constrained')       #cf docu matplotlib
     categories = [i for i in freq.keys()]
     ax.set_title("Fréquence des lettre dans la chaine de caractere")
@@ -279,8 +281,7 @@ w = dechiffrer(z,y,alphabet)
 lol = decrypter(z,alphabet)
 
 print(w == x == lol)
-freq = frequence_lettre(z)
-# affiche_graph(freq)
+
 
 
 
